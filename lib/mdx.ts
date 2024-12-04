@@ -1,23 +1,23 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import readingTime from 'reading-time';
-import { serialize } from 'next-mdx-remote/serialize';
-import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug';
-import rehypePrettyCode from 'rehype-pretty-code';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import readingTime from "reading-time";
+import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+// import rehypePrettyCode from "rehype-pretty-code";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-const postsDirectory = path.join(process.cwd(), 'content/posts');
+const postsDirectory = path.join(process.cwd(), "content/posts");
 
 export function getAllPosts() {
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames
-    .filter((fileName) => fileName.endsWith('.mdx'))
+    .filter((fileName) => fileName.endsWith(".mdx"))
     .map((fileName) => {
-      const id = fileName.replace(/\.mdx$/, '');
+      const id = fileName.replace(/\.mdx$/, "");
       const fullPath = path.join(postsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data, content } = matter(fileContents);
 
       // return {
@@ -28,9 +28,9 @@ export function getAllPosts() {
       // Ensure required fields are included
       return {
         id,
-        title: data.title || 'Untitled', // Provide fallback values if necessary
-        date: data.date || 'Unknown date',
-        excerpt: data.excerpt || 'No excerpt available.',
+        title: data.title || "Untitled", // Provide fallback values if necessary
+        date: data.date || "Unknown date",
+        excerpt: data.excerpt || "No excerpt available.",
         content, // Include content if required
         readingTime: readingTime(content),
       };
@@ -49,7 +49,7 @@ export function getAllPosts() {
 export async function getPostById(id: string) {
   try {
     const fullPath = path.join(postsDirectory, `${id}.mdx`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
 
     const mdxSource = await serialize(content, {
@@ -58,8 +58,8 @@ export async function getPostById(id: string) {
         remarkPlugins: [remarkGfm],
         rehypePlugins: [
           rehypeSlug,
-          // [rehypePrettyCode, prettyCodeOptions],
-          [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+          // [rehypePrettyCode, { theme: "github-dark" }],
+          [rehypeAutolinkHeadings, { behavior: "wrap" }],
         ],
       },
     });
@@ -68,10 +68,10 @@ export async function getPostById(id: string) {
       id,
       content: mdxSource,
       readingTime: readingTime(content),
-      ...data,
+      ...(data as { title: string; date: string; excerpt: string }),
     };
   } catch (error) {
-    console.error('Error processing MDX:', error);
+    console.error("Error processing MDX:", error);
     throw error;
   }
 }

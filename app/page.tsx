@@ -1,28 +1,31 @@
-"use client"
+"use client";
 
-import { motion } from 'framer-motion'
-import { ArrowRight, BarChart, LineChart, PieChart } from 'lucide-react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { motion } from "framer-motion";
+import { ArrowRight, BarChart, LineChart, PieChart } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const features = [
     {
       icon: BarChart,
       title: "Clear Communication",
-      description: "Transform complex data into clear, actionable insights that everyone can understand."
+      description:
+        "Transform complex data into clear, actionable insights that everyone can understand.",
     },
     {
       icon: LineChart,
       title: "Better Decisions",
-      description: "Make informed decisions faster with visual representations of your business data."
+      description:
+        "Make informed decisions faster with visual representations of your business data.",
     },
     {
       icon: PieChart,
       title: "Engagement",
-      description: "Keep stakeholders engaged with interactive and beautiful data presentations."
-    }
-  ]
+      description:
+        "Keep stakeholders engaged with interactive and beautiful data presentations.",
+    },
+  ];
 
   return (
     <div className="flex flex-col items-center">
@@ -44,8 +47,8 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                Learn how to leverage the power of data visualization to make better business decisions
-                and communicate insights effectively.
+                Learn how to leverage the power of data visualization to make
+                better business decisions and communicate insights effectively.
               </p>
             </motion.div>
             <motion.div
@@ -73,18 +76,21 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="flex flex-col items-center text-center"
               >
-                <div className="mb-4 rounded-full bg-primary/10 p-4">
-                  <feature.icon className="h-6 w-6" />
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-4 rounded-full bg-primary/10 p-4">
+                    <feature.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mb-2 text-xl font-bold">{feature.title}</h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="mb-2 text-xl font-bold">{feature.title}</h3>
-                <p className="text-gray-500 dark:text-gray-400">{feature.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }

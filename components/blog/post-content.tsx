@@ -1,11 +1,22 @@
-'use client';
+"use client";
 
-import { MDXRemote } from 'next-mdx-remote';
-import { PostHeader } from '@/components/blog/post-header';
-import { components } from '@/lib/mdx-components';
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { PostHeader } from "@/components/blog/post-header";
+import { components } from "@/lib/mdx-components";
+import { ReadTimeResults } from "reading-time";
 
 interface BlogPostContentProps {
-  post: any; // TODO: Add proper type
+  post: {
+    title: string;
+    date: string;
+    excerpt: string;
+    id: string;
+    content: MDXRemoteSerializeResult<
+      Record<string, unknown>,
+      Record<string, unknown>
+    >;
+    readingTime: ReadTimeResults;
+  };
 }
 
 export function BlogPostContent({ post }: BlogPostContentProps) {
