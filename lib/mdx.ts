@@ -68,7 +68,7 @@ export async function getPostById(id: string) {
       id,
       content: mdxSource,
       readingTime: readingTime(content),
-      ...data,
+      ...(data as { title: string; date: string; excerpt: string }),
     };
   } catch (error) {
     console.error("Error processing MDX:", error);

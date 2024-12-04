@@ -15,6 +15,7 @@ export default async function BlogPost({ params }: { params: Params }) {
     const post = await getPostById(slug);
     return <BlogPostContent post={post} />;
   } catch (error) {
+    console.error(error);
     notFound();
   }
 }
