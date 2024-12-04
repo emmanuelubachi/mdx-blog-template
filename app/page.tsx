@@ -76,15 +76,16 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="flex flex-col items-center text-center"
               >
-                <div className="mb-4 rounded-full bg-primary/10 p-4">
-                  <feature.icon className="h-6 w-6" />
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-4 rounded-full bg-primary/10 p-4">
+                    <feature.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mb-2 text-xl font-bold">{feature.title}</h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="mb-2 text-xl font-bold">{feature.title}</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  {feature.description}
-                </p>
               </motion.div>
             ))}
           </div>
